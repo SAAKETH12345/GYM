@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
     "@google/generative-ai": "^0.24.1",
     "@gsap/react": "^2.1.2",
     "framer-motion": "^13.4.4",
@@ -22,6 +24,7 @@
     "recharts": "^3.10.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",

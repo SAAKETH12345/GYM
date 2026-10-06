@@ -45,14 +45,14 @@ export default function Login({ onLogin }) {
           
           <button 
             type="submit" 
-            className="mt-6 w-full py-5 border-4 border-brand-red bg-transparent text-brand-red font-black tracking-[0.3em] text-xl uppercase hover:bg-brand-red hover:text-white transition-all rounded-none"
+            className="mt-6 w-full py-5 border-4 border-brand-red bg-transparent text-brand-red font-black tracking-[0.3em] text-xl uppercase hover:bg-black hover:text-brand-red hover:shadow-[8px_8px_0_#8A0000] active:shadow-none active:translate-x-2 active:translate-y-2 transition-none rounded-none"
           >
-            Authenticate
+            [ AUTHENTICATE ]
           </button>
         </form>
 
         <div className="mt-12 pt-6 flex justify-between font-mono text-xs tracking-widest text-white/30 border-t-2 border-white/20">
-          <Link to="/" className="hover:text-brand-red transition-colors">{'< ABORT / RETURN TO BASE'}</Link>
+          <Link to="/" className="hover:bg-black hover:text-brand-red hover:shadow-[4px_4px_0_#8A0000] px-2 py-1 transition-none">{'< ABORT / RETURN TO BASE'}</Link>
           <span>[ ENCRYPTED_CONNECTION ]</span>
         </div>
       </motion.div>

@@ -86,7 +86,7 @@ export default function SanctuaryAI({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md z-40"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-[100]"
           />
           
           {/* Brutalist Terminal Console */}
@@ -95,7 +95,7 @@ export default function SanctuaryAI({ isOpen, onClose }) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 180 }}
-            className="fixed top-0 right-0 h-full w-full md:w-[600px] bg-black border-l-8 border-brand-red z-50 flex flex-col shadow-[-30px_0px_0px_0px_rgba(138,0,0,0.5)]"
+            className="fixed top-0 right-0 h-full w-full md:w-[600px] bg-black border-l-8 border-brand-red z-[110] flex flex-col shadow-[-30px_0px_0px_0px_rgba(138,0,0,0.5)]"
           >
             {/* Console Header */}
             <div className="border-b-4 border-white/20 p-8 flex justify-between items-end bg-[#050505]">

@@ -1,9 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const panels = [
   {
@@ -24,14 +21,18 @@ const panels = [
 ];
 
 const MuscleHeatmapPanel = ({ panel }) => (
-  <div 
-    className="telemetry-panel w-screen h-full flex flex-col lg:flex-row justify-center items-center relative border-r-8 border-brand-red p-8 md:p-16 pt-32 lg:pt-16"
+  <motion.div 
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 0.8 }}
+    className="telemetry-panel w-full min-h-[80vh] flex flex-col lg:flex-row justify-center items-center relative border-b-8 border-brand-red p-8 md:p-16 py-32"
   >
     {/* Grid Background */}
     <div className="absolute inset-0 bg-[linear-gradient(to_right,#8A000033_1px,transparent_1px),linear-gradient(to_bottom,#8A000033_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
     
     {/* System Diagnostic Corner Text */}
-    <div className="absolute top-8 right-8 lg:top-12 lg:right-12 z-50 font-mono text-white/50 text-sm md:text-base tracking-[0.2em] animate-pulse">
+    <div className="absolute top-12 right-8 lg:top-16 lg:right-12 z-50 font-mono text-white/50 text-sm md:text-base tracking-[0.2em] animate-pulse">
       [ SYS.DIAGNOSTIC... RUNNING ]
     </div>
     
@@ -107,7 +108,7 @@ const MuscleHeatmapPanel = ({ panel }) => (
         </p>
       </div>
     </div>
-  </div>
+  </motion.div>
 );
 
 const PlateCalculatorPanel = ({ panel }) => {
@@ -129,14 +130,18 @@ const PlateCalculatorPanel = ({ panel }) => {
   };
 
   return (
-    <div 
-      className="telemetry-panel w-screen h-full flex flex-col lg:flex-row justify-center items-center relative border-r-8 border-brand-red p-8 md:p-16 pt-32 lg:pt-16"
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className="telemetry-panel w-full min-h-[80vh] flex flex-col lg:flex-row justify-center items-center relative border-b-8 border-brand-red p-8 md:p-16 py-32"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8A000033_1px,transparent_1px),linear-gradient(to_bottom,#8A000033_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
       
-      <div className="absolute top-8 right-8 lg:top-12 lg:right-12 z-50 font-mono text-white/50 text-sm md:text-base tracking-[0.2em] animate-pulse">
+      <div className="absolute top-12 right-8 lg:top-16 lg:right-12 z-50 font-mono text-white/50 text-sm md:text-base tracking-[0.2em] animate-pulse">
         [ LOAD... AWAITING ENGAGEMENT ]
       </div>
 
@@ -194,18 +199,22 @@ const PlateCalculatorPanel = ({ panel }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const BarVelocityPanel = ({ panel }) => {
   return (
-    <div 
-      className="telemetry-panel w-screen h-full flex flex-col lg:flex-row justify-center items-center relative border-r-8 border-brand-red p-8 md:p-16 pt-32 lg:pt-16 last:border-r-0 bg-[#050505]"
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
+      className="telemetry-panel w-full min-h-[80vh] flex flex-col lg:flex-row justify-center items-center relative p-8 md:p-16 py-32 bg-[#050505]"
     >
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#8A000033_1px,transparent_1px),linear-gradient(to_bottom,#8A000033_1px,transparent_1px)] bg-[size:60px_60px] pointer-events-none" />
       
-      <div className="absolute top-8 right-8 lg:top-12 lg:right-12 z-50 font-mono text-brand-red text-sm md:text-base tracking-[0.2em] animate-pulse font-bold">
+      <div className="absolute top-12 right-8 lg:top-16 lg:right-12 z-50 font-mono text-brand-red text-sm md:text-base tracking-[0.2em] animate-pulse font-bold">
         [ CRITICAL ALERT ]
       </div>
 
@@ -255,44 +264,21 @@ const BarVelocityPanel = ({ panel }) => {
           </p>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 export default function AdvancedTelemetry() {
-  const containerRef = useRef(null);
-  const wrapperRef = useRef(null);
-
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      const sections = gsap.utils.toArray('.telemetry-panel');
-      
-      gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          pin: true,
-          scrub: 1,
-          snap: 1 / (sections.length - 1),
-          end: () => "+=" + wrapperRef.current.offsetWidth
-        }
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={containerRef} className="relative w-full h-screen bg-black overflow-hidden border-t-8 border-brand-red">
-      {/* Fixed Title for the section */}
-      <div className="absolute top-8 left-8 md:top-12 md:left-12 z-50">
-        <h2 className="text-brand-red font-mono font-bold tracking-[0.4em] uppercase text-sm md:text-xl border-b-4 border-brand-red pb-2 bg-black px-4 shadow-[4px_4px_0px_0px_#8A0000]">
+    <section className="relative w-full bg-black border-t-8 border-brand-red flex flex-col">
+      {/* Sticky Title for the section */}
+      <div className="sticky top-0 z-[60] w-full p-6 md:p-12 pointer-events-none">
+        <h2 className="text-brand-red font-mono font-bold tracking-[0.4em] uppercase text-sm md:text-xl border-b-4 border-brand-red pb-2 bg-black px-4 shadow-[4px_4px_0px_0px_#8A0000] inline-block pointer-events-auto">
           ADVANCED TELEMETRY //
         </h2>
       </div>
       
-      <div ref={wrapperRef} className="flex w-[300vw] h-full">
+      <div className="flex flex-col w-full -mt-24">
         {panels.map((panel) => {
           if (panel.id === '01') return <MuscleHeatmapPanel key={panel.id} panel={panel} />;
           if (panel.id === '02') return <PlateCalculatorPanel key={panel.id} panel={panel} />;
